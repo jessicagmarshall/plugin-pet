@@ -3,7 +3,7 @@
 export function turnCatOn() {
   console.log('eep oop');
   let minutes = parseFloat('0.1');
-  chrome.browserAction.setBadgeText({text: 'ON'});
+  chrome.browserAction.setBadgeText({text: 'PURR'});
   chrome.alarms.create({delayInMinutes: minutes});
   chrome.storage.sync.set({minutes: minutes});
 //  window.close();
