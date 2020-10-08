@@ -7,7 +7,7 @@ chrome.alarms.onAlarm.addListener(function() {
   chrome.browserAction.setBadgeText({text: ''});
   chrome.notifications.create({
       type:     'basic',
-      iconUrl:  'angry_cat.jpeg',
+      iconUrl:  'public/angry_cat.jpeg',
       title:    'Your cat wants attention',
       message:  'PET ME NOW!',
       buttons: [

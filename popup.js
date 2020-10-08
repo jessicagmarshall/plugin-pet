@@ -3,23 +3,26 @@
 // found in the LICENSE file.
 'use strict';
 
-function setAlarm(event) {
+let catIsOn = false
+
+function turnCatOn(event) {
+  console.log('eep oop');
+  catIsOn = true
   let minutes = parseFloat(event.target.value);
   chrome.browserAction.setBadgeText({text: 'ON'});
   chrome.alarms.create({delayInMinutes: minutes});
   chrome.storage.sync.set({minutes: minutes});
-  window.close();
+//  window.close();
 }
 
-function clearAlarm() {
+function turnCatOff() {
   chrome.browserAction.setBadgeText({text: ''});
+  catIsOff = true
   chrome.alarms.clearAll();
-  window.close();
+//  window.close();
 }
 
 //An Alarm delay of less than the minimum 1 minute will fire
-// in approximately 1 minute incriments if released
-document.getElementById('sampleSecond').addEventListener('click', setAlarm);
-document.getElementById('15min').addEventListener('click', setAlarm);
-document.getElementById('30min').addEventListener('click', setAlarm);
-document.getElementById('cancelAlarm').addEventListener('click', clearAlarm);
+// in approximately 1 minute increments if released
+document.getElementById('toggle').addEventListener('click', turnCatOn);
+// document.getElementById('cancelAlarm').addEventListener('click', turnCatOff);
