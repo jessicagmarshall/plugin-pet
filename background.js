@@ -7,9 +7,9 @@ chrome.alarms.onAlarm.addListener(function() {
   chrome.browserAction.setBadgeText({text: ''});
   chrome.notifications.create({
       type:     'basic',
-      iconUrl:  'stay_hydrated.png',
-      title:    'Time to Hydrate',
-      message:  'Everyday I\'m Guzzlin\'!',
+      iconUrl:  'angry_cat.jpeg',
+      title:    'Your cat wants attention',
+      message:  'PET ME NOW!',
       buttons: [
         {title: 'Keep it Flowing.'}
       ],
