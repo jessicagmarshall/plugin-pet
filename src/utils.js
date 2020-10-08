@@ -1,13 +1,26 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-'use strict';
+/*global chrome*/
+
+export function turnCatOn() {
+  console.log('eep oop');
+  let minutes = parseFloat('0.1');
+  chrome.browserAction.setBadgeText({text: 'ON'});
+  chrome.alarms.create({delayInMinutes: minutes});
+  chrome.storage.sync.set({minutes: minutes});
+//  window.close();
+}
+
+
+export function turnCatOff() {
+  chrome.browserAction.setBadgeText({text: ''});
+  chrome.alarms.clearAll();
+//  window.close();
+}
 
 chrome.alarms.onAlarm.addListener(function() {
   chrome.browserAction.setBadgeText({text: ''});
   chrome.notifications.create({
       type:     'basic',
-      iconUrl:  'public/angry_cat.jpeg',
+      iconUrl:  'angry_cat.jpeg',
       title:    'Your cat wants attention',
       message:  'PET ME NOW!',
       buttons: [

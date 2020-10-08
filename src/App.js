@@ -1,13 +1,11 @@
 import React from 'react';
-import angry_cat from './angry_cat.jpeg';
 import './App.css';
+import BaseExtension from './components/BaseExtension'
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <img src={angry_cat} alt="logo" />
-      </header>
+      <BaseExtension />
     </div>
   );
 }
