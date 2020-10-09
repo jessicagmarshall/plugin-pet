@@ -47,7 +47,7 @@ class BaseExtension extends Component {
               src={angry_cat}
               onClick={() => turnCatOn()}
             />
-            <div>
+            <div style={{ color: 'black' }}>
               <p>{`You have ignored your cat ${this.state.timesIgnored} ${this.state.timesIgnored === 1 ? 'time' : 'times'}`}</p>
             </div>
             <div class="top-left">Click to activate</div>
