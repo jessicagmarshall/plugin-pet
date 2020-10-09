@@ -42,7 +42,7 @@ class BaseExtension extends Component {
 
   render() {
       return (
-          <div>
+          <div class="container">
             <img
               src={angry_cat}
               onClick={() => turnCatOn()}
@@ -50,6 +50,7 @@ class BaseExtension extends Component {
             <div>
               <p>{`You have ignored your cat ${this.state.timesIgnored} ${this.state.timesIgnored === 1 ? 'time' : 'times'}`}</p>
             </div>
+            <div class="top-left">Click to activate</div>
           </div>
       )
    }
