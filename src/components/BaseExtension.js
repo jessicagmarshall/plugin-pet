@@ -5,6 +5,7 @@ import { PauseCircleOutlined, PlayCircleOutlined } from '@ant-design/icons';
 
 import { turnCatOn, turnCatOff } from "../utils";
 import angry_cat from '../assets/angry_cat.jpeg';
+import sleeping_cat from '../assets/sleeping_cat.jpg';
 
 class BaseExtension extends Component {
   constructor(props) {
@@ -57,12 +58,12 @@ class BaseExtension extends Component {
           <div class="container">
             <div>
               <img
-                src={angry_cat}
+                style={{ height: '250px', width: '250px' }}
+                src={!this.state.paused ? angry_cat : sleeping_cat}
                 onClick={() => this.togglePause()}
                 alt='angry_cat'
               />
             </div>
-            <div class="top-left">Click to activate</div>
             <div style={{ color: 'black', display: 'flex', justifyContent: 'space-around' }}>
               <div>
                 <p>{`You have ignored your cat ${this.state.timesIgnored} ${this.state.timesIgnored === 1 ? 'time' : 'times'}.`}</p>
@@ -79,6 +80,9 @@ class BaseExtension extends Component {
                   />
                  }
               </div>
+            </div>
+            <div style={{ color: 'black' }}>
+              {this.state.paused ? `Click to wake up your cat.` : `Click to put your cat to sleep.`}
             </div>
           </div>
       )
