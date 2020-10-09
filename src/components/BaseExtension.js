@@ -20,9 +20,7 @@ class BaseExtension extends Component {
     // persist state
     chrome.storage.sync.get(['timesIgnored'], function(result) {
       if (result.timesIgnored === undefined) {
-        chrome.storage.sync.set({'timesIgnored': 0}, function(result) {
-          this.setState({'timesIgnored': 0});
-        }.bind(this));
+        chrome.storage.sync.set({'timesIgnored': 0});
       } else {
         this.setState({'timesIgnored': result.timesIgnored});
       }
@@ -30,9 +28,7 @@ class BaseExtension extends Component {
 
     chrome.storage.sync.get(['paused'], function(result) {
       if (result.paused === undefined) {
-        chrome.storage.sync.set({'paused': true}, function(result) {
-          this.setState({'paused': true});
-        }.bind(this));
+        chrome.storage.sync.set({'paused': true});
       } else {
         this.setState({'paused': result.paused});
       }
@@ -49,10 +45,8 @@ class BaseExtension extends Component {
   }
 
   componentDidUpdate() {
-     chrome.storage.sync.set({'timesIgnored': this.state.timesIgnored}, function(result) {
-     });
-     chrome.storage.sync.set({'paused': this.state.paused}, function(result) {
-     });
+     chrome.storage.sync.set({'timesIgnored': this.state.timesIgnored});
+     chrome.storage.sync.set({'paused': this.state.paused});
   }
 
   togglePause() {
