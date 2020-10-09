@@ -15,3 +15,5 @@ clicking the refresh button in the bottom right corner of the Plugin Pet extensi
 When interacting with the plugin, you can access the extension console by right-clicking on the cat's face and clicking `Inspect`
 
 ![documentation](docs/doc-2.png)
+
+[demo video](https://www.youtube.com/watch?v=9GeU1BDbRiE)
