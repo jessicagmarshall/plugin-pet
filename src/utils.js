@@ -23,12 +23,10 @@ chrome.alarms.onAlarm.addListener(function() {
       iconUrl:  'angry_cat.jpeg',
       title:    'Your cat wants attention',
       message:  'PET ME NOW!',
-      buttons: [
-        {title: 'Keep it Flowing.'}
-      ],
       priority: 0});
 });
 
+// user pressed a button in the notification
 chrome.notifications.onButtonClicked.addListener(function() {
   chrome.storage.sync.get(['minutes'], function(item) {
     chrome.browserAction.setBadgeText({text: 'ON'});

@@ -1,3 +1,5 @@
+/*global chrome*/
+
 import React, { Component } from 'react';
 
 import { turnCatOn, turnCatOff } from "../utils";
@@ -10,7 +12,20 @@ class BaseExtension extends Component {
         timesIgnored: 0
     }
   }
+
+  componentDidMount() {
+    // the notification was closed, either by the system or by user action
+    chrome.notifications.onClosed.addListener(function() {
+      this.incrementTimesIgnored()
+    }.bind(this));
+  }
+
+  incrementTimesIgnored() {
+    this.setState({ timesIgnored: this.state.timesIgnored + 1 })
+  }
+
   render() {
+      console.log(this.state);
       return (
           <div>
             <img
