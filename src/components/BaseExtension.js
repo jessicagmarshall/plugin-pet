@@ -14,6 +14,17 @@ class BaseExtension extends Component {
   }
 
   componentDidMount() {
+    // persist state
+    chrome.storage.sync.get(['timesIgnored'], function(result) {
+      if (result.timesIgnored === undefined) {
+        chrome.storage.sync.set({'timesIgnored': 0}, function(result) {
+          this.setState({'timesIgnored': 0})
+        }.bind(this));
+      } else {
+        this.setState({'timesIgnored': result.timesIgnored})
+      }
+    }.bind(this));
+
     // the notification was closed, either by the system or by user action
     chrome.notifications.onClosed.addListener(function() {
       this.incrementTimesIgnored()
@@ -24,8 +35,12 @@ class BaseExtension extends Component {
     this.setState({ timesIgnored: this.state.timesIgnored + 1 })
   }
 
+  componentDidUpdate() {
+     chrome.storage.sync.set({'timesIgnored': this.state.timesIgnored}, function(result) {
+     }.bind(this));
+  }
+
   render() {
-      console.log(this.state);
       return (
           <div>
             <img
@@ -33,7 +48,7 @@ class BaseExtension extends Component {
               onClick={() => turnCatOn()}
             />
             <div>
-              <p>You have ignored your cat {this.state.timesIgnored} times.</p>
+              <p>{`You have ignored your cat ${this.state.timesIgnored} ${this.state.timesIgnored === 1 ? 'time' : 'times'}`}</p>
             </div>
           </div>
       )
