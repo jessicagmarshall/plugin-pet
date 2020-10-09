@@ -28,6 +28,16 @@ class BaseExtension extends Component {
       }
     }.bind(this));
 
+    chrome.storage.sync.get(['paused'], function(result) {
+      if (result.paused === undefined) {
+        chrome.storage.sync.set({'paused': true}, function(result) {
+          this.setState({'paused': true});
+        }.bind(this));
+      } else {
+        this.setState({'paused': result.paused});
+      }
+    }.bind(this));
+
     // the notification was closed, either by the system or by user action
     chrome.notifications.onClosed.addListener(function() {
       this.incrementTimesIgnored();
@@ -40,6 +50,8 @@ class BaseExtension extends Component {
 
   componentDidUpdate() {
      chrome.storage.sync.set({'timesIgnored': this.state.timesIgnored}, function(result) {
+     });
+     chrome.storage.sync.set({'paused': this.state.paused}, function(result) {
      });
   }
 
