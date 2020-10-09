@@ -7,6 +7,11 @@ import { turnCatOn, turnCatOff } from "../utils";
 import angry_cat from '../assets/angry_cat.jpeg';
 import sleeping_cat from '../assets/sleeping_cat.jpg';
 
+var default_values = {
+  'timesIgnored': 0,
+  'paused': true
+}
+
 class BaseExtension extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +23,8 @@ class BaseExtension extends Component {
 
   componentDidMount() {
     // persist state
-    chrome.storage.sync.get(['timesIgnored'], function(result) {
-      if (result.timesIgnored === undefined) {
-        chrome.storage.sync.set({'timesIgnored': 0}, function(result) {
-          this.setState({'timesIgnored': 0});
-        }.bind(this));
-      } else {
-        this.setState({'timesIgnored': result.timesIgnored});
-      }
-    }.bind(this));
+    this.getStorageValue('timesIgnored');
+    this.getStorageValue('paused');
 
     // the notification was closed, either by the system or by user action
     chrome.notifications.onClosed.addListener(function() {
@@ -34,13 +32,37 @@ class BaseExtension extends Component {
     }.bind(this));
   }
 
+  getStorageValue(key) {
+    chrome.storage.sync.get([key], function(result) {
+      console.log(key, result[key], 'get')
+      if (result[key] === undefined) {
+        chrome.storage.sync.set({key: default_values[key]}, function(result) {
+        }.bind(this));
+      } else {
+//        console.log(key, result[key]);
+        this.setState({[key]: result[key]}, () => {
+//          console.log(this.state)
+        });
+      }
+    }.bind(this));
+  }
+
+  setStorageValue(key) {
+     console.log(key, this.state[key], 'set');
+     chrome.storage.sync.set({key: this.state[key]}, function() {
+     });
+  }
+
   incrementTimesIgnored() {
     this.setState({ timesIgnored: this.state.timesIgnored + 1 });
   }
 
-  componentDidUpdate() {
-     chrome.storage.sync.set({'timesIgnored': this.state.timesIgnored}, function(result) {
-     });
+  componentDidUpdate(prevState) {
+    for (const key in Object.keys(this.state)) {
+      if (prevState[key] !== this.state[key]) {
+        this.setStorageValue(key)
+      }
+    }
   }
 
   togglePause() {
