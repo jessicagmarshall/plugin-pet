@@ -4,6 +4,12 @@ import { turnCatOn, turnCatOff } from "../utils";
 import angry_cat from '../assets/angry_cat.jpeg';
 
 class BaseExtension extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+        timesIgnored: 0
+    }
+  }
   render() {
       return (
           <div>
@@ -11,6 +17,9 @@ class BaseExtension extends Component {
               src={angry_cat}
               onClick={() => turnCatOn()}
             />
+            <div>
+              <p>You have ignored your cat {this.state.timesIgnored} times.</p>
+            </div>
           </div>
       )
    }
